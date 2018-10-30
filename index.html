@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Catalogo de café, com os tipos de café e descrição">
+  	<meta name="author" content="Marcos Mathias Junior">
+	<title>Coffee catalog!</title>
+	<link rel="stylesheet" type="text/css" href="css/estilo.css">
+	<script type="text/javascript" src="js/jQuery-3-3-1.min.js"></script>
+	<script type="text/javascript" src="controller/listar.js"></script>
+	<script type="text/javascript" src="controller/pesquisar.js"></script>
+</head>
+<body>
+	<div id="principal">
+            <header class="hero">
+                <nav>
+                	<img class="logo" src="img/logo.png"><label class="coffe">Coffee catalog!</label>
+	                    <ul>
+	                        <li><a href="index.html">Início</a></li>
+	                        <li><a class="btnCadastrar"  onclick="iniciaModal('#modal-cadastrar')" href="#">Inserir novo café</a></li>
+	                    </ul>
+                </nav>
+                <div class="hero-content">
+                    <h1>coffee catalog</h1>
+          			<div id="divBusca">
+					  	<img src="img/icon-lupa.png"  id="icon-lupa" alt="Buscar..."/>
+					  	<input type="text" id="txtBusca" name="id" placeholder="Busque pelo id"/>
+					  	<button type="submit" id="btnBusca" value="Buscar" onclick="pesquisarId(txtBusca.value); iniciaModal('#modal-buscar');">Buscar</button>
+					</div>
+				</div>
+            </header>
+	<main>
+
+		 <section class="tabela-section" >
+          <h3></h3>
+          <table id="tabelaCatalogo" cellpadding="5px" cellspacing="0"  >
+          	<thead>
+          		<th>ID</th>
+          		<th>Nome</th>
+          		<th>Descrição</th>
+          	</thead>
+          	<tbody>
+          	</tbody>
+          </table>          
+         </section>
+	</main>
+	
+		<footer class="rodape">
+	    	<p>Coffe Catalog &copy; 2018</p>            
+		</footer>
+
+<!-- modal que carrega quando o usuario clicar em cadastrar um novo café -->
+	
+	</div>
+		<div class="modal-container" id="modal-cadastrar">
+			<div class="modal">
+				<button class="fechar">X</button>
+				<div id="tituloForm">
+					<p>Inserir um novo café</p>
+				</div>
+				<form action="controller/cadastrar.php" method="POST">
+					<input type="text" id="inputNome" name="nome" class="txtForm" placeholder="Nome" >
+					<br>
+					<textarea  placeholder="Descrição" type="text" class="txtForm" name="descricao"></textarea>
+					<br>
+					<input  type="submit" id="btnCadastrar"  value="Cadastrar">
+				</form>
+			</div>
+		</div>
+		
+
+<!-- modal que carrega quando o usuario clicar em buscar um café -->
+	
+			<div class="modal-container" id="modal-buscar">
+				<div class="modal" >
+					<button class="fechar">X</button>
+					<div class="resultadoBusca">
+
+					</div>
+					
+				</div>
+			</div>
+
+			<script type="text/javascript" src="view/modal.js"></script>
+			
+
+</body>
+
+</html>
