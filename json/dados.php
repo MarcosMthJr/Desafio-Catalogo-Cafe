@@ -1,13 +1,5 @@
 <?php
-require_once("../conexao/conexao.php");
-header('Content-type:' . "text/plain");
-$select = "SELECT * FROM catalogo";
-$conexao -> query($select);
-$resultado = mysqli_query($conexao, $select);
-$json_array = array();
+header('Content-Type: text/html; charset=utf-8');
 
-while ($linha = mysqli_fetch_assoc($resultado)) {
-	$json_array[] = $linha;
-}
- echo json_encode($json_array, JSON_PRETTY_PRINT);
-?>
+require __DIR__ . "/../model/Cafe.php";
+echo json_encode((new Cafe())->listar(),true);
