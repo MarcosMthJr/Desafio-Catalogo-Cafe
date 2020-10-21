@@ -1,16 +1,17 @@
 <?php
-//importa a classe de cadastro
-	require_once"../model/Class-Cadastrar.php";
-	
-// recebendo os valores do formulário	
-	$nome = ($_POST['nome']);
-	$descricao = ($_POST['descricao']);
-//verificando se os campos do formulários não estão vazios 
-	if (empty($nome) && empty($descricao)){
-    	echo "Volte e preencha todos os campos";
-    	exit;
-	}
-//  criando um obj e chamando a função para realizar o cadastro passando o nome e a descrição como parâmetros	
-	$cadastrar = new Cadastrar();
-	$cadastrar -> realizarCadastro($nome, $descricao);
-?>
+
+require __DIR__ . "/../model/Cafe.php";
+
+$data = filter_input_array(INPUT_POST);
+
+try {
+    $cafe = new Cafe();
+    if($cafe->cadastrar($data)){
+        header('Location: ../index.html');
+        exit;
+    }else{
+        echo("Falha ao inserir Café,favor verificar os dados enviados.");
+    }
+}catch (\Exception $e){
+    echo($e->getMessage());
+}
