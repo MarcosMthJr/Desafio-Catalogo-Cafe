@@ -4,9 +4,8 @@ Esse projeto se trata de um catalogo de café, usando html, css, php, javascript
 
 2 - Faça a importação do banco de dados, no phpMyAdmin ou qualquer outro aplicativo web para usar MySQL, o arquivo .sql se encontra no diretório cafe\banco_de_dados
 
-3 - Se tiver problemas com a conexão ao banco de dados, mude as configuração dos arquivo conexão.php, localizado em cafe\conexao\conexao.php , mude de acordo com as congigurações do seu servidor local.
+3 - Se tiver problemas com a conexão ao banco de dados, mude as configuração dos arquivo conexão.php, localizado em cafe\conexao\conexao.php , mude de acordo com as configurações do seu servidor local.
 
-pronto é só isso! 
+pronto é só isso!
 
 agora só abrir o localhost em seu navegador.
-

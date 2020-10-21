@@ -29,14 +29,4 @@ class Cafe extends Database
 
        return $store;
    }
-
-   public function listar():array
-   {
-       $sql_select = "SELECT * FROM {$this->table} ORDER BY id DESC";
-       $stmt = $this->getConnection()->prepare($sql_select);
-       $stmt->execute();
-       $cafes = $stmt->fetchAll();
-
-       return $cafes;
-   }
 }
