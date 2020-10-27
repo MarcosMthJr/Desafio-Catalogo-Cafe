@@ -46,17 +46,11 @@ class Database
 
     private function prepare()
     {
-        echo $this->sql;
-        try{
         $this->statement = $this->connection->prepare($this->sql);
         if (!empty($this->userData)) {
             foreach ($this->userData as $key => $value) {
-                $this->statement->bindParam(':' . $key, $value);
+                $this->statement->bindValue(':' . $key, $value);
             }
-        }} catch(Exception $e) {
-            var_dump($e->getMessage());
-        } catch (PDOException $p) {
-            var_dump($p->getMessage());
         }
     }
 
@@ -72,7 +66,7 @@ class Database
                 $this->data = $this->statement->fetchAll(PDO::FETCH_OBJ);
             }
         }
-        return $this->data;
+        return $this->data ?? [];
     }
 
     public function all()
