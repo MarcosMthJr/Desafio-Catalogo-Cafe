@@ -27,4 +27,16 @@ class Cafe extends Database
        $store = $stmt->execute();
        return $store;
    }
+
+   public function atualizar(array $data = []) : bool
+   {
+       $sql_insert = "UPDATE {$this->table} SET
+        nome = :nome, descricao = :descricao where id = :id";
+       $stmt = $this->getConnection()->prepare($sql_insert);
+       $stmt->bindValue(':id', $data['id']);
+       $stmt->bindValue(':nome', $data['nome']);
+       $stmt->bindValue(':descricao', $data['descricao']);
+       $store = $stmt->execute();
+       return $store;
+   }
 }

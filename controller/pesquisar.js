@@ -15,7 +15,7 @@ function pesquisarId(id) {
             dataType: "json",
             method: "GET",
             error: erro,
-            success: buscarDados,
+            success: exibeDados,
         });
         function erro(err) {
             let texto = err.status == 404 ?
@@ -24,10 +24,31 @@ function pesquisarId(id) {
             $(".resultadoBusca").html(texto);
         }
         // função para buscar no json o objeto com o id que o usuario deseja encontrar
-        function buscarDados(dados) {
-            let item = "<p style='font-size: 34px;text-shadow: 3px 3px 2px #ccc; '>" + dados.nome; + "</p>";
-            item += "<p style='text-align: justify;'>" + dados.descricao; + "</p>";
-            $(".resultadoBusca").html(item);
+        function exibeDados(dados) {
+            let html = `<form id="update-cafe">
+                <input type='hidden' value='${dados.id}' name='id'>
+                <input style='font-size: 34px;text-shadow: 3px 3px 2px #ccc;'
+                    type='text' name='nome' value='${dados.nome}'>
+                <textarea style='text-align: justify;'
+                name='descricao'>${dados.descricao}
+                </textarea>
+                <input type='submit' value='Atualizar'>
+            </form>`;
+            $(".resultadoBusca").html(html);
+            $("#update-cafe").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "controller/atualizar.php",
+                    data: $(this).serialize(),
+                    cache: false,
+                    //dataType: "json",
+                    type: "POST",
+                    error: erro,
+                    success: function () {
+                        alert('Sucesso');
+                    },
+                });
+            });
         }
     }
 }
