@@ -6,12 +6,10 @@ $data = filter_input_array(INPUT_POST);
 
 try {
     $cafe = new Cafe();
-    if($cafe->cadastrar($data)){
-        header('Location: ../index.html');
-        exit;
-    }else{
-        echo("Falha ao atualizar Café,favor verificar os dados enviados.");
+    if(!$cafe->atualizar($data)){
+        throw new \Exception("Falha ao inserir Café, favor verificar os dados enviados.");
     }
 }catch (\Exception $e){
+    http_response_code('500');
     echo($e->getMessage());
 }
