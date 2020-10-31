@@ -9,7 +9,6 @@ require __DIR__ . "/Database.php";
 
 class Cafe extends Database
 {
-
    private $name;
    private $description;
    public $table = 'catalogo';
@@ -26,17 +25,6 @@ class Cafe extends Database
        $stmt->bindValue(':nome',$data['nome']);
        $stmt->bindValue(':descricao',$data['descricao']);
        $store = $stmt->execute();
-
        return $store;
-   }
-
-   public function listar():array
-   {
-       $sql_select = "SELECT * FROM {$this->table} ORDER BY id DESC";
-       $stmt = $this->getConnection()->prepare($sql_select);
-       $stmt->execute();
-       $cafes = $stmt->fetchAll();
-
-       return $cafes;
    }
 }

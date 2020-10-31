@@ -1,13 +1,22 @@
 <?php
 
-
 class Database
 {
     private $connection;
 
+    protected $table;
+
+    private $data = null;
+
+    private $statement;
+
+    private $sql;
+
+    private $userData;
+
     public function __construct()
     {
-        $file = __DIR__ . "/../database_config.ini";
+        $file = __DIR__ . '/../database_config.ini';
 
         $config = parse_ini_file($file,true);
 
@@ -20,8 +29,14 @@ class Database
             PDO::ATTR_CASE => PDO::CASE_NATURAL
         ];
 
-        $this->connection = new PDO("mysql:host=".$host.";dbname=".$dbname,$username,$password,$options);
+        $this->connection = new PDO(
+            'mysql:host=' . $host . ';dbname=' . $dbname,
+            $username,
+            $password,
+            $options
+        );
 
+        $this->sql = "SELECT * FROM {$this->table} ";
     }
 
     public function getConnection()
@@ -29,5 +44,68 @@ class Database
         return $this->connection;
     }
 
+    private function prepare()
+    {
+        $this->statement = $this->connection->prepare($this->sql);
+        if (!empty($this->userData)) {
+            foreach ($this->userData as $key => $value) {
+                $this->statement->bindValue(':' . $key, $value);
+            }
+        }
+    }
 
+    public function get()
+    {
+        $this->prepare();
+        $this->statement->execute();
+        $count = $this->statement->rowCount();
+        if ($count) {
+            if ($count == 1) {
+                $this->data = $this->statement->fetchObject();
+            } else {
+                $this->data = $this->statement->fetchAll(PDO::FETCH_OBJ);
+            }
+        }
+        return $this->data ?? [];
+    }
+
+    public function all()
+    {
+        return $this->get();
+    }
+
+    public function where($key = [], $value = '', $equals = '=')
+    {
+        $this->userData[$key] = $value;
+        $existsWhere = strpos(strtolower($this->sql), 'where');
+        if ($existsWhere === false) {
+            $this->sql .= ' WHERE ';
+            $this->sql .= " {$key} {$equals} :{$key} ";
+        } else {
+            $this->sql .= " AND {$key} {$equals} :{$key} ";
+        }
+        return $this;
+    }
+
+    public function whereOr($key = [], $value = '', $equals = '=')
+    {
+        $this->userData[$key] = $value;
+        $existsWhere = strpos(strtolower($this->sql), 'where');
+        if ($existsWhere === false) {
+            $this->sql .= ' WHERE ';
+            $this->sql .= " {$key} {$equals} :{$key} ";
+        } else {
+            $this->sql .= " OR {$key} {$equals} :{$key} ";
+        }
+        return $this;
+    }
+
+    public function salvar($data)
+    {
+        $this->userData = $data;
+        /*$sql = ''
+        foreach ($dados as $campo => $valor) {
+
+        }*/
+    }
 }
