@@ -10,7 +10,7 @@ try {
         header('Location: ../index.html');
         exit;
     }else{
-        echo("Falha ao atualizar Café,favor verificar os dados enviados.");
+        echo("Falha ao inserir Café,favor verificar os dados enviados.");
     }
 }catch (\Exception $e){
     echo($e->getMessage());
