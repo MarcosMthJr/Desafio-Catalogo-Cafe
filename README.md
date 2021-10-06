@@ -6,6 +6,6 @@ Esse projeto se trata de um catalogo de café, usando html, css, php, javascript
 
 3 - Se tiver problemas com a conexão ao banco de dados, mude as configuração dos arquivo conexão.php, localizado em cafe\conexao\conexao.php , mude de acordo com as configurações do seu servidor local.
 
-pronto é só isso!
+Pronto é só isso!
 
-agora só abrir o localhost em seu navegador.
+Agora só abrir o localhost em seu navegador.
